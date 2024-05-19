@@ -1,0 +1,22 @@
+[
+    {
+        "FirstName": "Frodo",
+        "LastName": "Baggins",
+        "CourseName": "Adventure Management"
+    },
+    {
+        "FirstName": "Samwise",
+        "LastName": "Gamgee",
+        "CourseName": "Culinary Arts"
+    },
+    {
+        "FirstName": "Meriadoc",
+        "LastName": "Brandybuck",
+        "CourseName": "Hobbit Shenanigans"
+    },
+    {
+        "FirstName": "Peregrin",
+        "LastName": "Took",
+        "CourseName": "Hobbit Shenanigans"
+    }
+]
