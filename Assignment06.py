@@ -26,7 +26,7 @@ MENU: str = '''
 FILE_NAME: str = "Enrollments.json"
 KEYS: list = ["FirstName", "LastName", "CourseName"]
 
-# Define the Data Variables
+# Define the global data variables
 menu_choice: str = ''  # Hold the choice made by the user.
 students: list = []  # List of data for all students
 saved: bool = True  # Tracks whether newly added data has been saved
@@ -43,7 +43,7 @@ class FileProcessor:
     """
 
     @staticmethod
-    def read_data_from_file(file_name: str, student_data: list) -> None:
+    def read_data_from_file(file_name: str, student_data: list) -> list:
         """
         Reads the specified JSON file and stores it in a list.
 
@@ -52,15 +52,14 @@ class FileProcessor:
 
         :param file_name: string representing the name of the JSON file
         :param student_data: list to which student data will be stored
+        :return: list of data loaded from file
         """
         file: IO  # Holds a reference to an opened file.
-        file_data: list  # Holds the file read from the JSON file
 
         print(f">>> Loading data from {file_name}")
         try:
             file = open(file_name, "r")
-            file_data = json.load(file)
-            student_data.extend(file_data)  # add the data we just loaded to the passed-in list
+            student_data = json.load(file)
             file.close()
             print(f">>> Loaded {len(student_data)} records.")
 
@@ -69,6 +68,10 @@ class FileProcessor:
                 if not all(key in item for key in KEYS):
                     raise Exception(
                         f">>> Missing an expected key ({KEYS}) in record {i}. Please check {file_name} for errors.")
+
+            return student_data
+
+
 
         # Let the user know we couldn't find the file
         except FileNotFoundError:
@@ -241,7 +244,7 @@ class IO:
 
 
 # Load data from enrollment JSON file into students
-FileProcessor.read_data_from_file(file_name=FILE_NAME, student_data=students)
+students = FileProcessor.read_data_from_file(file_name=FILE_NAME, student_data=students)
 
 # Main program loop
 
@@ -276,7 +279,7 @@ while True:
                     print(">>> Have a nice day!\n")
                     exit()
                 else:
-                    continue # File was not successfully saved, so return to main menu
+                    continue  # File was not successfully saved, so return to main menu
             elif save_confirm.capitalize() == 'N':
                 print(">>> Newly entered data not saved.")
                 print(">>> Have a nice day!\n")
